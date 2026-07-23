@@ -1,5 +1,5 @@
 # 1. Use the official PHP 8.2 image with an Apache web server
-FROM php:8.2-apache
+FROM php:8.4-apache
 
 # 2. Install system dependencies and PHP extensions needed for Laravel and MySQL
 RUN apt-get update && apt-get install -y \

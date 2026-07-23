@@ -9,32 +9,34 @@ use Laravel\Sanctum\HasApiTokens; // Make sure Sanctum trait is imported
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+  use HasApiTokens,
+  HasFactory,
+  Notifiable;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
+  protected $fillable = [
+    'username',
+    'email',
+    'password',
+  ];
+
+  protected $hidden = [
+    'password',
+    'remember_token',
+  ];
+
+  protected function casts(): array
+  {
+    return [
+      'email_verified_at' => 'datetime',
+      'password' => 'hashed',
     ];
+  }
 
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+  public function sentMessages() {
+    return $this->hasMany(Message::class, 'sender_id');
+  }
 
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-    public function sentMessages() {
-        return $this->hasMany(Message::class, 'sender_id');
-    }
-
-    public function receivedMessages() {
-        return $this->hasMany(Message::class, 'receiver_id');
-    }
+  public function receivedMessages() {
+    return $this->hasMany(Message::class, 'receiver_id');
+  }
 }

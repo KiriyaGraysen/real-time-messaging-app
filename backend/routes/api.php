@@ -3,13 +3,6 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/greeting', function () {
-    return response()->json([
-        'status' => 'success',
-        'message' => 'The React and Laravel connection is fully working!'
-    ]);
-});
-
 // Auth routes used by the React frontend (Login.jsx / Register.jsx / Chat.jsx)
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
